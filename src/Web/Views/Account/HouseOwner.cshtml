@@ -1,0 +1,124 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@model HouseOwnerRegisterModel
+@{
+    ViewData["Title"] = "House Owner | Sign Up";
+}
+
+<body>
+    <div class="container">
+        <div class="pt-3 row">
+            <div class="pl-0 col-sm-8">
+
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="border-color: #b3faae; font-size: 16px" id="tenant">
+                    <div class="card-header text-center" style="background-color: #B3FAAE">
+                        @Localizer["Create an account - House Owner"]
+                    </div>
+                    <div class="tenantForm">
+                        <form method="post" asp-controller="Account" asp-action="HouseOwnerRegister">
+                            <div class="form-group col-7">
+                                <br />
+                                <label asp-for="Name">@Localizer["Enter Your Name"] <span style="color: red">*</span></label>
+                                <br />
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="form-group col-7">
+                                <label asp-for="Mobile">@Localizer["Enter Your Mobile No"] <span style="color: red">*</span></label>
+                                <br />
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupPrepend">+880</span>
+                                    </div>
+                                    <input asp-for="Mobile" class="form-control" />
+                                </div>
+                                <span asp-validation-for="Mobile" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="form-group col-7">
+                                <label asp-for="Email">@Localizer["Enter Your Email"] <span style="color: red">*</span></label>
+                                <br />
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-10">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label asp-for="NID">@Localizer["Enter NID No"] <span style="color: red">*</span></label>
+                                        <br />
+                                        <input asp-for="NID" class="form-control" placeholder="Enter NID-No" />
+                                        <span asp-validation-for="NID" class="text-danger"></span>
+                                        @{
+                                            string a = @ViewBag.HOError;
+                                            if (a == "HO")
+                                            {
+                                                <p style="color:red">@Localizer["NID already Exists"]</p>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-10">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label asp-for="Password">@Localizer["Enter Password"]</label>
+                                        <br />
+                                        <input asp-for="Password" class="form-control" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="ConfirmPassword">@Localizer["Re-Enter Password"] <span style="color: red">*</span></label>
+                                        <br />
+                                        <input asp-for="ConfirmPassword" class="form-control" />
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="pt-3 form-group col-10">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-outline-primary">@Localizer["Sign In Instead"]</button>
+                                    </div>
+                                    <div class="col">
+
+                                    </div>
+                                    <div class="col offset-5">
+                                        <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> @Localizer["Create Account"]</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--Instruction -->
+            <div class="pr-1 col-sm-4 offset-0">
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="border-color: #b3faae; font-size: 16px" id="tenant">
+
+                    <div class="card-header" style="background-color: #B3FAAE">
+                        <i class="fas fa-info" style="color:red"></i> @Localizer["Instructions"]
+                    </div>
+                    <div class="card-body">
+                        //TODO: Write Instruction for Register
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
